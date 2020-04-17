@@ -29,6 +29,7 @@ public class SpringConfigurador implements ApplicationContextAware {
 		resolver.setTemplateEngine(templateEngine());
 		resolver.setCharacterEncoding("UTF-8");
 		return resolver;
+		
 	}
 
 	@Bean
