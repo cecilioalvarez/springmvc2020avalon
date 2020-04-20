@@ -9,6 +9,8 @@ import es.avalon.dominio.Categoria;
 import es.avalon.dominio.Libro;
 import es.avalon.servicios.ServicioLibros;
 
+
+
 @Controller
 @RequestMapping("/libros")
 public class LibrosController {
@@ -38,18 +40,18 @@ public class LibrosController {
 			return "formularioInsertar";
 		}
 		
-		@RequestMapping("/formularioInsertar")
-		public String insertar(Libro libro,Model modelo, String categoria) {
+		@RequestMapping("/insertar")
+		public String insertar(Libro libro,Model modelo, String nombreCategoria) {
 			
 			//Insertar
 			System.out.println(libro.getIsbn());
 			System.out.println(libro.getTitulo());
-			Categoria c=servicio.buscarCategoriaPorNombre(categoria);
+			Categoria c=servicio.buscarCategoriaPorNombre(nombreCategoria);
 			libro.setCategoria(c);
 			servicio.insertarLibro(libro);
 			
 			modelo.addAttribute("lista",servicio.buscarLibroTodos());
-			return "formularioInsertar";
+			return "listaLibros";
 		}
 
 	// /libros/listaLibros
