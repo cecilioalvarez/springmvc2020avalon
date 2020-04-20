@@ -44,6 +44,15 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-
+<dependency>
+			<groupId>es.avalon</groupId>
+			<artifactId>dominiojpa</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>es.avalon</groupId>
+			<artifactId>repositorios</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
