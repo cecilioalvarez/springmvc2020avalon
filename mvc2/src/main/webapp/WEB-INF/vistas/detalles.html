@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<table>
+		<td>ISBN</td>
+		<td>TITULO</td>
+		<td>AUTOR</td>
+		<td>PRECIO</td>
+		<td>CATEGORIA</td>
+
+		<tr>
+			<td th:text="${libro.isbn}">ISBN</td>
+			<td th:text="${libro.titulo}">TITULO</td>
+			<td th:text="${libro.autor}">AUTOR</td>
+			<td th:text="${libro.precio}">PRECIO</td>
+			<td th:text="${libro.categoria.nombre}">PRECIO</td>
+		</tr>
+
+	</table>
+
+</body>
+</html>
