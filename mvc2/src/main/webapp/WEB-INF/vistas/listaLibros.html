@@ -11,6 +11,7 @@
 			<td th:text="${libro.titulo}"></td>
 			<td th:text="${libro.autor}"></td>
 			<td th:text="${libro.precio}"></td>
+			<td><a th:href="@{borrar(isbn=${libro.isbn})}">Borrar</a></td>
 		</tr>
 	</table>
 

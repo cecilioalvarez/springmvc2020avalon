@@ -53,6 +53,17 @@ public class LibrosController {
 			modelo.addAttribute("lista",servicio.buscarLibroTodos());
 			return "listaLibros";
 		}
+		
+		@RequestMapping("/borrar")
+		public String borrar(Model modelo, String isbn) {
+			
+			//Borrar
+			Libro l=servicio.buscarLibroPorISBN(isbn);
+			servicio.borrarLibro(l);
+			
+			modelo.addAttribute("lista",servicio.buscarLibroTodos());
+			return "listaLibros";
+		}
 
 	// /libros/listaLibros
 //	@RequestMapping("/listaLibros")
