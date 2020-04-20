@@ -22,16 +22,9 @@ public class SpringWebInicializador implements WebApplicationInitializer {
 		contexto.register(SpringConfigurador.class);
 		contexto.setServletContext(contenedor);
 		contexto.refresh();
-		// registro un servlet
-		
-		System.out.println(contexto.getBean(LibrosController.class));
-		System.out.println("llega por aqui");
-		
 		ServletRegistration.Dynamic servlet = contenedor.addServlet("dispatcher", new DispatcherServlet(contexto));
 		servlet.setLoadOnStartup(1);
 		servlet.addMapping("/*");
 
-		
 	}
-
 }

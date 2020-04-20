@@ -1,11 +1,19 @@
 package es.avalon.mvc;
 
+import javax.persistence.EntityManagerFactory;
+
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.thymeleaf.TemplateEngine;
@@ -17,19 +25,20 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
 @ComponentScan("es.avalon.mvc.controladores")
+@ComponentScan("es.avalon.repositorios.*")
+@ComponentScan("es.avalon.servicios")
+
 @EnableWebMvc
 public class SpringConfigurador implements ApplicationContextAware {
 
 	private ApplicationContext contexto;
-	
-	
+
 	@Bean
 	public ViewResolver viewResolver() {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
 		resolver.setTemplateEngine(templateEngine());
 		resolver.setCharacterEncoding("UTF-8");
 		return resolver;
-		
 	}
 
 	@Bean
@@ -45,18 +54,34 @@ public class SpringConfigurador implements ApplicationContextAware {
 		resolver.setApplicationContext(contexto);
 		resolver.setPrefix("/WEB-INF/vistas/");
 		resolver.setSuffix(".html");
-
 		resolver.setCacheable(false);
 		resolver.setTemplateMode(TemplateMode.HTML);
 		return resolver;
 	}
-	
+
 	public void setApplicationContext(ApplicationContext contexto) throws BeansException {
-		
-		this.contexto=contexto;
-		
+		this.contexto = contexto;
 	}
 	
-	
-	
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
+		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		entityManager.setJpaVendorAdapter(vendorAdapter);
+		entityManager.setPersistenceUnitName("UnidadBiblioteca");
+		return entityManager;
+	}
+
+	@Bean
+	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(emf);
+		return transactionManager;
+	}
+
+	@Bean
+	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+		return new PersistenceExceptionTranslationPostProcessor();
+	}
+
 }
