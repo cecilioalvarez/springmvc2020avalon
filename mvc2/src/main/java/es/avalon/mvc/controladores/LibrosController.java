@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import es.avalon.dominio.Categoria;
 import es.avalon.dominio.Libro;
 import es.avalon.servicios.ServicioLibros;
 
@@ -30,6 +31,26 @@ public class LibrosController {
 		modelo.addAttribute("libro", new Libro("1", "java", "pedro", 20));
 		return "paginaLibro";
 	}
+	
+		@RequestMapping("/formularioInsertar")
+		public String formularioInsertar() {
+
+			return "formularioInsertar";
+		}
+		
+		@RequestMapping("/formularioInsertar")
+		public String insertar(Libro libro,Model modelo, String categoria) {
+			
+			//Insertar
+			System.out.println(libro.getIsbn());
+			System.out.println(libro.getTitulo());
+			Categoria c=servicio.buscarCategoriaPorNombre(categoria);
+			libro.setCategoria(c);
+			servicio.insertarLibro(libro);
+			
+			modelo.addAttribute("lista",servicio.buscarLibroTodos());
+			return "formularioInsertar";
+		}
 
 	// /libros/listaLibros
 //	@RequestMapping("/listaLibros")
