@@ -27,6 +27,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @Configuration
 @ComponentScan("es.avalon.mvc.controladores")
 @ComponentScan("es.avalon.repositorios.*")
+@ComponentScan("es.avalon.rest")
 @ComponentScan("es.avalon.servicios")
 
 @EnableWebMvc

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		 
+		 $.get("../webapi/libros", function(libros){
+			 
+			 for (var libro of libros) {
+                 $("body").append(`<p>${libro.isbn},${libro.titulo},${libro.autor},${libro.precio},${libro.categoria}</p>`)
+             }
+			 
+		 })   
+
+	})
+</script>
+
+</head>
+<body>hola para ajax
+</body>
+
+</html>
