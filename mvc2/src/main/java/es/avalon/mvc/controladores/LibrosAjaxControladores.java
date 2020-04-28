@@ -9,9 +9,8 @@ public class LibrosAjaxControladores {
 
 	@RequestMapping("listaLibros")
 	public String listaLibros() {
-		
+
 		return "listaLibrosajax";
 	}
-	
-	
+
 }

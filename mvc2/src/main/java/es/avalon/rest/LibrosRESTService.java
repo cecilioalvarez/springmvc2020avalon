@@ -18,19 +18,20 @@ public class LibrosRESTService {
 
 	@Autowired
 	ServicioLibros servicio;
-	
+
 	@RequestMapping("/libros")
 	@ResponseBody
-	public List<LibroDTO> buscarTodos(){
-		
+	public List<LibroDTO> buscarTodos() {
+
 		List<Libro> lista = servicio.buscarLibroTodos();
 		List<LibroDTO> otra = new ArrayList<LibroDTO>();
-		
-		for(Libro l :lista) {
-			LibroDTO nuevo = new LibroDTO(l.getIsbn(),l.getTitulo(),l.getAutor(),l.getPrecio(),l.getCategoria().getNombre());
+
+		for (Libro l : lista) {
+			LibroDTO nuevo = new LibroDTO(l.getIsbn(), l.getTitulo(), l.getAutor(), l.getPrecio(),
+					l.getCategoria().getNombre());
 			otra.add(nuevo);
 		}
-		 return otra; 
-		
+		return otra;
+
 	}
 }

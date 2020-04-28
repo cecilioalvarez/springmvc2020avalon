@@ -12,7 +12,9 @@
 		 $.get("../webapi/libros", function(libros){
 			 
 			 for (var libro of libros) {
-                 $("body").append(`<p>${libro.isbn},${libro.titulo},${libro.autor},${libro.precio},${libro.categoria}</p>`)
+                 $("#tabla").append(`<tr><td>${libro.isbn}</td><td>${libro.titulo}</td>
+                 <td>${libro.autor}</td><td>${libro.precio}</td>
+                 <td>${libro.categoria}</td></tr>`)
              }
 			 
 		 })   
@@ -20,8 +22,11 @@
 	})
 </script>
 
+
 </head>
-<body>hola para ajax
+<body>
+
+	<table id=tabla></table>
 </body>
 
 </html>
