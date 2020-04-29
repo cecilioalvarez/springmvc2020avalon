@@ -28,6 +28,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @ComponentScan("es.avalon.mvc.controladores")
 @ComponentScan("es.avalon.servicios")
 @ComponentScan("es.avalon.repositorios.*")
+@ComponentScan("es.avalon.rest")
 @EnableWebMvc
 @EnableTransactionManagement
 public class SpringConfigurador implements ApplicationContextAware {

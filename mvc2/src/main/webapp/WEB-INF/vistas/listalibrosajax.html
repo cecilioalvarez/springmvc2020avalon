@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script type="text/babel">
+	$(document).ready(function() {
+
+		$.get("../webapi/libros", function(datos) {
+
+			generarTabla(datos);
+			
+		});	
+
+		$("#mitabla").on("click","input", function() {
+            	
+			let isbn=$(this).closest("tr").find("td:first").text();
+
+			$.ajax({
+			url: `../webapi/libros/${isbn}`,
+			type: 'DELETE',
+			success: function(resultado) {
+				
+				$("#mitabla").empty();
+				$.get("../webapi/libros", function(datos) {
+				generarTabla(datos);
+				});
+
+			}
+           	});
+
+		});
+
+		$("#enviar").click(function() {
+		
+			envioDatos();
+	
+		});
+
+	});
+
+	function generarTabla(datos) {
+
+		for (let libro of datos) {
+
+				$("#mitabla").append(`
+				<tr>
+				<td>${libro.isbn}</td>
+				<td>${libro.titulo}</td>
+				<td>${libro.autor}</td>
+				<td>${libro.precio}</td>
+				<td>${libro.categoria}</td>
+				<td><input type="button" value="borrar"/></td>
+				</tr>`);
+			}
+	}
+
+	function envioDatos() {
+	
+		let objeto={isbn:$("#isbn").val(), 
+			titulo:$("#titulo").val(), 
+			autor:$("#autor").val(), 
+			precio:$("#precio").val(),
+			categoria:$("#categoria").val()};
+			console.log(objeto);
+
+		$.ajax
+		({
+			url: `../webapi/libros`,
+			type: "POST",
+			contentType: 'application/json',
+			//dataType: 'application/json',
+			data: JSON.stringify(objeto),
+			success: function() {
+				alert("hemos insertado un libro");
+			},
+		});
+
+}
+
+	</script>
+
+</head>
+
+<body>
+	<table id="mitabla">
+	</table>
+
+	<form>
+		<p>
+			<input type="text" name="isbn" id="isbn" />
+		</p>
+		<p>
+			<input type="text" name="titulo" id="titulo" />
+		</p>
+		<p>
+			<input type="text" name="autor" id="autor" />
+		</p>
+		<p>
+			<input type="text" name="precio" id="precio" />
+		</p>
+		<p>
+			<input type="text" name="categoria" id="categoria" />
+		</p>
+		<input type="button" id="enviar" value="aceptar" />
+
+	</form>
+
+</body>
+
+</html>
