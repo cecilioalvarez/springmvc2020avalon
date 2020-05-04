@@ -9,8 +9,6 @@ import es.avalon.dominio.Categoria;
 import es.avalon.dominio.Libro;
 import es.avalon.servicios.ServicioLibros;
 
-
-
 @Controller
 @RequestMapping("/libros")
 public class LibrosController {
@@ -33,37 +31,37 @@ public class LibrosController {
 		modelo.addAttribute("libro", new Libro("1", "java", "pedro", 20));
 		return "paginaLibro";
 	}
-	
-		@RequestMapping("/formularioInsertar")
-		public String formularioInsertar() {
 
-			return "formularioInsertar";
-		}
-		
-		@RequestMapping("/insertar")
-		public String insertar(Libro libro,Model modelo, String nombreCategoria) {
-			
-			//Insertar
-			System.out.println(libro.getIsbn());
-			System.out.println(libro.getTitulo());
-			Categoria c=servicio.buscarCategoriaPorNombre(nombreCategoria);
-			libro.setCategoria(c);
-			servicio.insertarLibro(libro);
-			
-			modelo.addAttribute("lista",servicio.buscarLibroTodos());
-			return "listaLibros";
-		}
-		
-		@RequestMapping("/borrar")
-		public String borrar(Model modelo, String isbn) {
-			
-			//Borrar
-			Libro l=servicio.buscarLibroPorISBN(isbn);
-			servicio.borrarLibro(l);
-			
-			modelo.addAttribute("lista",servicio.buscarLibroTodos());
-			return "listaLibros";
-		}
+	@RequestMapping("/formularioInsertar")
+	public String formularioInsertar() {
+
+		return "formularioInsertar";
+	}
+
+	@RequestMapping("/insertar")
+	public String insertar(Libro libro, Model modelo, String nombreCategoria) {
+
+		// Insertar
+		System.out.println(libro.getIsbn());
+		System.out.println(libro.getTitulo());
+		Categoria c = servicio.buscarCategoriaPorNombre(nombreCategoria);
+		libro.setCategoria(c);
+		servicio.insertarLibro(libro);
+
+		modelo.addAttribute("lista", servicio.buscarLibroTodos());
+		return "listaLibros";
+	}
+
+	@RequestMapping("/borrar")
+	public String borrar(Model modelo, String isbn) {
+
+		// Borrar
+		Libro l = servicio.buscarLibroPorISBN(isbn);
+		servicio.borrarLibro(l);
+
+		modelo.addAttribute("lista", servicio.buscarLibroTodos());
+		return "listaLibros";
+	}
 
 	// /libros/listaLibros
 //	@RequestMapping("/listaLibros")
@@ -76,13 +74,13 @@ public class LibrosController {
 //
 //		return "listaLibros";
 //	}
-	
+
 	// /libros/listaLibros
-		@RequestMapping("/listaLibros")
-		public String listaLibros(Model modelo) {
+	@RequestMapping("/listaLibros")
+	public String listaLibros(Model modelo) {
 
-			modelo.addAttribute("lista", servicio.buscarLibroTodos());
+		modelo.addAttribute("lista", servicio.buscarLibroTodos());
 
-			return "listaLibros";
-		}
+		return "listaLibros";
+	}
 }
